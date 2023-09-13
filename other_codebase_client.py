@@ -29,7 +29,19 @@ def measure_tf_import():
     result = task_signature.delay()
     return result.get()
 
+def failing_task():
+    # Define a signature for the task - this must be the same as what the worker expects
+    task_signature = signature("tasks.failing_task")
 
-print(my_dummy_task(22, "string arg"))
+    # Send the task using the signature
+    result = task_signature.delay()
+    return result.get()
+
+
+# print(my_dummy_task(22, "string arg"))
 # print(inspect_pid_and_thread())
 print(measure_tf_import())
+# try:
+#     print(failing_task())
+# except Exception as e:
+#     print(e)
